@@ -7,30 +7,46 @@ import Playlist from '../Playlist/Playlist.js'
 class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state.searchResults = SearchResults;
     this.state = {
+      searchResults: {
+        name: "Hi",
+        artist: "I am",
+        album: "Gay",
+        id: "1"
+      },
       playListName: 'Fuck you',
       playListTracks: {
         name: "",
         artist: "",
         album: "",
-        id: ""
+        id: "",
       }
-    }
-  }
+    };
 
-  render() {
-    return (<div>
-      <h1>Ja<span class="highlight">mmm</span>ing</h1>
-      <div class="App">
-        <SearchBar/>
-        <div class="App-playlist">
-          <SearchResults/>
-        <Playlist playListName={this.state.playListName} playListTracks={this.state.playListTracks}/>
-        </div>
-      </div>
-    </div>);
+  this.addTrack = this.addTrack.bind(this);
+
+}
+
+addTrack(track) {
+  if (this.state.playListTracks.find(savedTrack => savedTrack.id === track.id)) {
+    return;
+  } else {
+    this.state.playListTracks.add({track})
   }
+}
+
+render() {
+  return (<div>
+    <h1>Ja<span className="highlight">mmm</span>ing</h1>
+    <div className="App">
+      <SearchBar/>
+      <div className="App-playlist">
+        <SearchResults onAdd={this.addTrack()} searchResults={this.state.searchResults}/>
+        <Playlist playListName={this.state.playListName} playListTracks={this.state.playListTracks}/>
+      </div>
+    </div>
+  </div>);
+}
 }
 
 export default App;
