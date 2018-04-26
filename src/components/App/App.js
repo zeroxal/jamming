@@ -8,7 +8,6 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-<<<<<<< HEAD
       searchResults: [{
         name: "Hi",
         artist: "I am",
@@ -17,25 +16,11 @@ class App extends React.Component {
       }],
       playListName: 'Hi',
       playListTracks: [{
-=======
-      searchResults: {
-        name: "Hi",
-        artist: "I am",
-        album: "Gay",
-        id: "1"
-      },
-      playListName: 'Fuck you',
-      playListTracks: {
->>>>>>> 932609cb12534cc3a1b5cb65d9fc6d6e43af9e71
         name: "",
         artist: "",
         album: "",
         id: "",
-<<<<<<< HEAD
       }]
-=======
-      }
->>>>>>> 932609cb12534cc3a1b5cb65d9fc6d6e43af9e71
     };
 
   this.addTrack = this.addTrack.bind(this);
