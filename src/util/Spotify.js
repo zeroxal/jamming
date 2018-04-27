@@ -1,12 +1,11 @@
-let accessToken = '';
+let accessToken;
 const ClientID = '310b9f64086940d6a47d941353d30296';
-<<<<<<< HEAD
 const redirectURI = 'http://zeroxal-jammming.surge.sh';
 
 const Spotify = {
 
   getAccessToken() {
-    if (accessToken !== '') {
+    if (accessToken) {
       return accessToken;
     }
 
@@ -14,12 +13,11 @@ const Spotify = {
     let accessTokenMatch = window.location.href.match(/access_token=([^&]*)/);
 
     if (expirationTimeMatch && accessTokenMatch) {
-      let accessToken = accessTokenMatch[1];
-      let expireTime = expirationTimeMatch[1];
+      accessToken = accessTokenMatch[1];
+      let expireTime = Number(expirationTimeMatch[1]);
 
       window.setTimeout(() => accessToken = '', expireTime * 1000);
       window.history.pushState('Access Token', null, '/');
-
       return accessToken;
     } else {
       window.location = `https://accounts.spotify.com/authorize?client_id=${ClientID}&response_type=token&scope=playlist-modify-public&redirect_uri=${redirectURI}`
@@ -34,24 +32,25 @@ const Spotify = {
       }
     }).then(response => {
       if (response.ok) {
-        return response.json
+        return response.json();
       } else {
         throw new Error('Request failed!')
       }
     }).then(jsonResponse => {
-      if (jsonResponse.hasOwnProperty('tracks')) {
+      if (!jsonResponse.tracks) {
+        return [];}
         return jsonResponse.tracks.items.map(track => ({id: track.id, name: track.name, artist: track.artists[0].name, album: track.album.name, uri: track.uri}));
       }
 
-    })
+    )
 
   },
 
   savePlaylist(playListName, trackURIs){
-    if (!playListName || !trackURIs){
+    if (!playListName || !trackURIs.length){
       return;
     }
-let Token = this.accessToken;
+let Token = this.getAccessToken();
 let header = {Authorization: `Bearer ${Token}`};
 let user;
 
@@ -88,32 +87,3 @@ return fetch(`https://api.spotify.com/v1/me`,
 
 
 export default Spotify;
-=======
-const redirectURI = 'http://localhost:3000';
-
-const Spotify {
-getAccessToken() {
-if (if accessToken !== ''){
-  return accessToken;
-}
-  let expirationTimeMatch = window.location.href.match(/expires_in=([^&]*)/);
-  let accessTokenMatch = window.location.href.match(/access_token=([^&]*)/);
-
-else if(expirationTimeMatch && accessTokenMatch ) {
-  let accessToken = accessTokenMatch[1];
-  let expireTime = expirationTimeMatch[1];
-
-  window.setTimeout(() => accessToken = '', expirationTime * 1000);
-  window.history.pushState('Access Token', null, '/');
-
-  return accessToken;
-} else {
-return `https://accounts.spotify.com/authorize?client_id=${ClientID}&response_type=token&scope=playlist-modify-public&redirect_uri=${redirectURI}`
-}
-}
-}
-
-
-
-export Spotify;
->>>>>>> 8302dbba49b9e1407ba866ff9d65131f18be538d
