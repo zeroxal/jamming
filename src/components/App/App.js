@@ -11,6 +11,7 @@ class App extends React.Component {
     this.state = {
       searchResults: [
         {
+<<<<<<< HEAD
           name: "",
           artist: "",
           album: "",
@@ -24,6 +25,21 @@ class App extends React.Component {
           artist: "",
           album: "",
           id: ""
+=======
+          name: "Hi",
+          artist: "I am",
+          album: "Josef",
+          id: "1"
+        }
+      ],
+      playListName: 'Hi',
+      playListTracks: [
+        {
+          name: "NAME",
+          artist: "JOSEF",
+          album: "BOBBBZ",
+          id: "1"
+>>>>>>> 8302dbba49b9e1407ba866ff9d65131f18be538d
         }
       ]
     };
@@ -46,6 +62,7 @@ class App extends React.Component {
 
   removeTrack(track) {
     let newPlaylistTracks = this.state.playListTracks.filter(savedTrack => savedTrack.id === track.id);
+<<<<<<< HEAD
     this.setState({playListTracks: newPlaylistTracks})
   }
 
@@ -71,6 +88,28 @@ class App extends React.Component {
   render() {
     return (<div>
       <h1>Ja<span className="highlight">mm</span>ing</h1>
+=======
+    this.setState({
+      playListTracks: newPlaylistTracks,
+    })
+  }
+
+  updatePlaylistName(name) {
+    this.setState({playListName: name})
+  }
+
+  savePlaylist(){
+    let trackURIs = this.playListTracks.map(track => track.uri)
+  }
+
+  search(term){
+    console.log(term)
+  }
+
+  render() {
+    return (<div>
+      <h1>Ja<span className="highlight">mmm</span>ing</h1>
+>>>>>>> 8302dbba49b9e1407ba866ff9d65131f18be538d
       <div className="App">
         <SearchBar onSearch={this.search}/>
         <div className="App-playlist">
