@@ -5,20 +5,20 @@ import './Searchbar.css'
 export default class SearchBar extends React.Component{
 constructor(props){
   super(props);
-  this.state = {search: ""}
 
   this.search = this.search.bind(this);
   this.handleEvent = this.handleEvent.bind(this);
 }
 
-search(){
+
+handleEvent(event) {
+  this.setState({search: event.target.value})
+}
+
+search() {
   this.props.onSearch(this.state.search);
 }
 
-handleEvent(event){
-  this.setState = {search: event.target.value}
-
-}
 
   render() {  return (
       <div className="SearchBar">

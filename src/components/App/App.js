@@ -11,19 +11,19 @@ class App extends React.Component {
     this.state = {
       searchResults: [
         {
-          name: "Hi",
-          artist: "I am",
-          album: "Josef",
-          id: "1"
+          name: "",
+          artist: "",
+          album: "",
+          id: ""
         }
       ],
-      playListName: 'Hi',
+      playListName: '',
       playListTracks: [
         {
-          name: "NAME",
-          artist: "JOSEF",
-          album: "BOBBBZ",
-          id: "1"
+          name: "",
+          artist: "",
+          album: "",
+          id: ""
         }
       ]
     };
@@ -46,30 +46,31 @@ class App extends React.Component {
 
   removeTrack(track) {
     let newPlaylistTracks = this.state.playListTracks.filter(savedTrack => savedTrack.id === track.id);
-    this.setState({
-      playListTracks: newPlaylistTracks,
-    })
+    this.setState({playListTracks: newPlaylistTracks})
   }
 
   updatePlaylistName(name) {
     this.setState({playListName: name})
   }
 
-  savePlaylist(){
-    let trackURIs = this.playListTracks.map(track => track.uri)
+  savePlaylist() {
+    let trackURIs = this.playListTracks.map(track => track.uri);
+    Spotify.savePlaylist(this.state.playListName, trackURIs);
+    this.setState({playListName: 'New PLaylist', playListTracks: []});
   }
 
-  search(searchterm){
+  search(searchterm) {
     Spotify.searchSP(searchterm).then(tracks => {
       this.setState({searchResults: tracks});
     });
 
-console.log(this.state.searchResults);
+    console.log(searchterm);
+    console.log(this.state.searchResults);
   }
 
   render() {
     return (<div>
-      <h1>Ja<span className="highlight">mmm</span>ing</h1>
+      <h1>Ja<span className="highlight">mm</span>ing</h1>
       <div className="App">
         <SearchBar onSearch={this.search}/>
         <div className="App-playlist">
