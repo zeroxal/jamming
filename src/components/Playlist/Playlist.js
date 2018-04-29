@@ -5,14 +5,11 @@ import './Playlist.css'
 import TrackList from '../Tracklist/Tracklist.js';
 
 export default class Playlist extends React.Component{
-<<<<<<< HEAD
 
   constructor(props) {
      super(props);
      this.handleNameChange = this.handleNameChange.bind(this);
    }
-=======
->>>>>>> 2a821e11151d62abca44c8efae6e320f6dc4eb28
 
 handleNameChange(e){
 this.props.onNameChange(e.target.value);
