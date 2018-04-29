@@ -47,7 +47,7 @@ const Spotify = {
   },
 
   savePlaylist(playListName, trackURIs){
-    if (!playListName || !trackURIs.length){
+    if (!playListName || !trackURIs){
       return;
     }
 let Token = this.getAccessToken();
