@@ -50,18 +50,20 @@ class App extends React.Component {
     let trackURIs = this.state.playListTracks.map(track => track.uri);
     Spotify.savePlaylist(this.state.playListName, trackURIs);
     this.setState({showPopup: true})
-    this.setState({playListName: 'New Playlist', playListTracks: []});
+
 
   }
 
   search(searchterm) {
+
     Spotify.searchSP(searchterm).then(tracks => {
       this.setState({searchResults: tracks});
     });
   }
 
 closePopup () {
-  this.setState({showPopup:false})
+  this.setState({showPopup:false});
+    this.setState({playListName: 'New Playlist', playListTracks: []});
 }
 
   render() {
