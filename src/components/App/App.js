@@ -4,6 +4,7 @@ import SearchBar from '../SearchBar/SearchBar.js';
 import SearchResults from '../SearchResults/SearchResults.js';
 import Playlist from '../Playlist/Playlist.js';
 import Spotify from '../../util/Spotify.js';
+import OnSavePopup from '../onSavePopup/onSavePopup.js';
 
 class App extends React.Component {
   constructor(props) {
@@ -14,6 +15,7 @@ class App extends React.Component {
       playListName: 'New Playlist',
       playListTracks: [
       ],
+      showPopup: false,
     };
 
     this.addTrack = this.addTrack.bind(this);
@@ -21,6 +23,7 @@ class App extends React.Component {
     this.updatePlaylistName = this.updatePlaylistName.bind(this);
     this.savePlaylist = this.savePlaylist.bind(this);
     this.search = this.search.bind(this);
+    this.closePopup = this.closePopup.bind(this)
   }
 
   addTrack(track) {
@@ -46,7 +49,7 @@ class App extends React.Component {
   savePlaylist() {
     let trackURIs = this.state.playListTracks.map(track => track.uri);
     Spotify.savePlaylist(this.state.playListName, trackURIs);
-
+    this.setState({showPopup: true})
     this.setState({playListName: 'New Playlist', playListTracks: []});
 
   }
@@ -57,15 +60,22 @@ class App extends React.Component {
     });
   }
 
+closePopup () {
+  this.setState({showPopup:false})
+}
+
   render() {
-    return (<div>
+    return (
+      <div>
       <h1>Ja<span className="highlight">mmm</span>ing</h1>
       <div className="App">
         <SearchBar onSearch={this.search}/>
         <div className="App-playlist">
           <SearchResults onAdd={this.addTrack} searchResults={this.state.searchResults}/>
-        <Playlist onSave={this.savePlaylist} playListName={this.state.playListName} playListTracks={this.state.playListTracks} onNameChange={this.updatePlaylistName} onRemove={this.removeTrack}/>
+        <Playlist  onSave={this.savePlaylist} playListName={this.state.playListName} playListTracks={this.state.playListTracks} onNameChange={this.updatePlaylistName} onRemove={this.removeTrack}/>
         </div>
+
+  {this.state.showPopup ? <OnSavePopup playListName={this.state.playListName} Playlistlength={this.state.playListTracks.length} closePopup={this.closePopup}/> : null}
       </div>
     </div>);
   }
